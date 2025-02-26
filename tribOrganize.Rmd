@@ -82,3 +82,7 @@ o2023_j2024 <- rbind(o2023_f2024,com_df)
 ```
 
 Make a New CSV of Bethel Hobo data from October 19, 2023 at 12:00PM to June 20, 2024 at 11:00AM
+```{r}
+write.csv(o2023_j2024, "C:/Users/mvhfg/OneDrive - University of Missouri/North_Limnology/Data_Organization/Trib/tribOrg/oct2023-jun2024.csv",row.names=FALSE)
+```
+

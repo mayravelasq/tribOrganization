@@ -81,3 +81,4 @@ o2023_j2024 <- rbind(o2023_f2024,com_df)
 #complete!
 ```
 
+Make a New CSV of Bethel Hobo data from October 19, 2023 at 12:00PM to June 20, 2024 at 11:00AM

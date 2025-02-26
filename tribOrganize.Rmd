@@ -22,7 +22,7 @@ files = list.files(
 
 #List[[i]]<-read.csv(read.csv((files2[i]),header = FALSE, sep=","))
 #for (i in 1:length(files2)) {read.csv(paste0("feb28-jun20/",files2[i]),header = FALSE, sep=",")}
-
+files2 <- list.files("feb28-jun20", pattern="*.csv")
 
 library(readr)
 library(stringr)
@@ -50,12 +50,34 @@ com_df <- setNames(all_df, c("Date_Time",	"wtr_0.5",	"wtr_1.0",	"wtr_1.5",	"wtr_
 
 ```
 
-Try to do the yes no columns from og excel : Bethe_HOBOTemp 2022-2023
+Try to do the yes no columns from og excel : Bethel_HOBOTemp 2022-2023
 ```{r}
 com_df$Diff_1.5_0.5 <- ifelse(abs(com_df$wtr_1.5 - com_df$wtr_0.5) >=1, "Yes", "No")
 com_df$Diff_2.5_1.5 <- ifelse(abs(com_df$wtr_2.5 - com_df$wtr_1.5) >=1, "Yes", "No")
 com_df$Diff_2.0_1.0 <- ifelse(abs(com_df$wtr_2.0 - com_df$wtr_1.0) >=1, "Yes", "No")
 
 #next steps: join this df and the og bethel one
+```
+
+Join bethel_hobotemp data with comdf using rbind
+```{r}
+if (!require(dplyr)) {install.packages("dplyr")}
+if (!require(tidyverse)) {install.packages("tidyverse")}
+library(dplyr)
+library(tidyverse)
+
+o2023_f2024 <- read.csv("Bethel_HOBOTemp_oct2023-feb2024.csv")
+
+o2023_f2024 <- o2023_f2024%>%
+  dplyr::rename("Diff_1.5_0.5" = Diff..1.5.0.5.)%>% 
+  dplyr::rename("Diff_2.5_1.5" = Diff..2.5.1.5.)%>% 
+  dplyr::rename("Diff_2.0_1.0" = Diff..2.1.)
+
+o2023_f2024 <- o2023_f2024%>%
+  drop_na()
+
+o2023_j2024 <- rbind(o2023_f2024,com_df)
+
+#complete!
 ```
 
